@@ -20,7 +20,6 @@
 'Share enumeration
 
 
-' Globals
 MsgBox("Welcome to Reporter v1.0")
 ret = MsgBox("Select the Vulnerability and Missing Patches file",vbYesNo,"Reporter v1.0")
 if ret = 6 Then
@@ -34,29 +33,70 @@ Else
 	MsgBox "Exiting...."
 	WScript.quit 1
 End If
+
+ret = MsgBox("Select the file with Informational findings",vbYesNo,"Reporter v1.0")
+if ret = 6 Then
+	filepath2 = BrowseForFile
+	If filePath2 = "" Then
+		MsgBox "Operation canceled", vbcritical
+	Else
+		MsgBox filePath2, vbinformation
+	End If
+Else
+	MsgBox "Exiting...."
+	WScript.quit 1
+End If
+
+ret = MsgBox("Select the file with Asset inventory",vbYesNo,"Reporter v1.0")
+if ret = 6 Then
+	filepath3 = BrowseForFile
+	If filePath3 = "" Then
+		MsgBox "Operation canceled", vbcritical
+	Else
+		MsgBox filePath3, vbinformation
+	End If
+Else
+'	MsgBox "Exiting...."
+'	WScript.quit 1
+End If
+
 	
 'Vulnerability and Missing Patches file
-filePath1 = "E:\Reporter Project\test.xlsx"
+'filePath1 = "E:\Reporter Project\test.xlsx"
+
+'Open the Missing Patches and Vulnerability file
 Set objExcel1 = CreateObject("Excel.Application")
 Set objWorkbook1 = objExcel1.Workbooks.Open(filePath1)
 Set vulnsheet = objWorkbook1.Sheets(1)
 Set msngPatches = objWorkbook1.Sheets(2)
-'Info file
-filePath2 = "E:\Reporter Project\info.xlsx"
+
+'Open the Info file
 Set objExcel2 = CreateObject("Excel.Application")
 Set objWorkbook2 = objExcel2.Workbooks.Open(filePath2)
+Set infosheet = objWorkbook2.Sheets(1)
 
+'Open the Asset inventory file
+Set objExcel3 = CreateObject("Excel.Application")
+Set objWorkbook3 = objExcel3.Workbooks.Open(filePath3)
+Set assetsheet = objWorkbook3.Sheets(1)
+
+'Open the Target Word File
+Set objWord = CreateObject("Word.Application")
+objWord.Caption = "Security Services Report"
+objWord.Visible = True
+objSelection.Font.Name = "Arial"
+objSelection.Font.Size = "18"
+objSelection.TypeText "Security Services Report"
+
+'Few basic checks
 MsgBox GetMaxColumn(vulnsheet)
 MsgBox GetMaxColumn(msngPatches)
 MsgBox GetMaxRow(vulnsheet)
 MsgBox GetMaxRow(msngPatches)
 
-
 'Assets scanned with status
 
 'Vulnerability Summary
-
-
 
 'Missing Patches Summary
 
@@ -65,9 +105,23 @@ MsgBox GetMaxRow(msngPatches)
 'Missing Patches Aging Summary
 
 
+
+'Save and close all opened files
+objWorkbook1.Save
+objWorkbook1.Close
 objExcel1.Quit
 
+objWorkbook2.Save
+objWorkbook2.Close
+objExcel2.Quit
 
+objWorkbook3.Save
+objWorkbook3.Close
+objExcel3.Quit
+
+objWord.Save
+objWord.Close
+objWord.Quit
 
 
 
@@ -86,7 +140,6 @@ Function GetMaxColumn(sheet)
 	GetMaxColumn = sheet.Range("XFD4").End(-4159).column
 End Function
 
-' Returns the file that is selected
 Function BrowseForFile()
 '@description: Browse for file dialog.
 '@author: Jeremy England (SimplyCoded)
