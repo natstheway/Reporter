@@ -62,7 +62,6 @@ End If
 
 	
 'Vulnerability and Missing Patches file
-'filePath1 = "E:\Reporter Project\test.xlsx"
 
 'Open the Missing Patches and Vulnerability file
 Set objExcel1 = CreateObject("Excel.Application")
@@ -76,24 +75,41 @@ Set objWorkbook2 = objExcel2.Workbooks.Open(filePath2)
 Set infosheet = objWorkbook2.Sheets(1)
 
 'Open the Asset inventory file
-Set objExcel3 = CreateObject("Excel.Application")
-Set objWorkbook3 = objExcel3.Workbooks.Open(filePath3)
-Set assetsheet = objWorkbook3.Sheets(1)
+'Set objExcel3 = CreateObject("Excel.Application")
+'Set objWorkbook3 = objExcel3.Workbooks.Open(filePath3)
+'Set assetsheet = objWorkbook3.Sheets(1)
 
 'Open the Target Word File
 Set objWord = CreateObject("Word.Application")
 objWord.Caption = "Security Services Report"
 objWord.Visible = True
-objSelection.Font.Name = "Arial"
-objSelection.Font.Size = "18"
-objSelection.TypeText "Security Services Report"
+Set objDoc = objWord.Documents.Add()
+Set objSelection = objWord.Selection
+
 
 'Few basic checks
+MsgBox wordOutputDir
 MsgBox GetMaxColumn(vulnsheet)
 MsgBox GetMaxColumn(msngPatches)
 MsgBox GetMaxRow(vulnsheet)
 MsgBox GetMaxRow(msngPatches)
 
+
+'Add basic contents and headers to Word File
+objSelection.Font.Name = "Arial"
+objSelection.Font.Size = "18"
+objSelection.TypeText "Security Services Report"
+objSelection.Font.Bold = False
+objSelection.TypeText "The report containing results of the following security assessments conducted on the <<Location>>  for the month of <<>>, 2018" 
+objSelection.TypeText "Vulnerability Assessment"
+objSelection.TypeText "Missing Patches"
+objSelection.TypeText "Baseline scans"
+objSelection.TypeText "USB Enumeration"
+objSelection.TypeText "Software Enumeration"
+objSelection.TypeText "Antivirus Enumeration"
+objSelection.Font.Bold = False
+objSelection.TypeText "" & objItem.ArpAlwaysSourceRoute
+objSelection.TypeParagraph()
 'Assets scanned with status
 
 'Vulnerability Summary
@@ -115,10 +131,11 @@ objWorkbook2.Save
 objWorkbook2.Close
 objExcel2.Quit
 
-objWorkbook3.Save
-objWorkbook3.Close
-objExcel3.Quit
+'objWorkbook3.Save
+'objWorkbook3.Close
+'objExcel3.Quit
 
+objDoc.SaveAs(GetCurrentDir & "\testdoc.doc")
 objWord.Save
 objWord.Close
 objWord.Quit
@@ -148,4 +165,8 @@ Function BrowseForFile()
     "<script>resizeTo(0,0);f.click();new ActiveXObject('Scripting.FileSystemObject')" & _
     ".GetStandardStream(1).WriteLine(f.value);close();</script>""" _
   ).StdOut.ReadLine()
+End Function
+
+Function GetCurrentDir
+	GetCurrentDir = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)
 End Function
