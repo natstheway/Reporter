@@ -274,7 +274,15 @@ MsgBox "Computing the aging and severity summary "
 'iter = iter + 1
 'Loop
 
-MsgBox "Writing to Doc file"
+'---------------------------------------------------------------
+'-------------------------REPORTING-----------------------------
+'---------------------------------------------------------------
+
+' PLEASE ENSURE ALL CALCULATIONS ARE COMPLETED BEFORE THIS
+' THIS IS ONLY FOR CREATING CHARTS IN EXCEL AND COPYING IN TO WORD
+														
+
+MsgBox "Reporting in progress"
 'Add basic contents and headers to Word File
 objSelection.Font.Name = "Calibri"
 objSelection.Font.Size = "18"
@@ -289,7 +297,56 @@ objSelection.Font.Bold = False
 objSelection.Font.Name = "Calibri"
 objSelection.Font.Size = "11"
 objSelection.TypeText "A breakdown of the vulnerabilities based on the severity is highlighted for the London devices in the below graph.  " 
+
 'TODO : INSERT CHART
+'Set oRange=vulnsheet.Range("A9:B12")
+'oRange.select
+'Set oChart=objExcel1.charts
+'oChart.Add()
+'Set oMychart=oChart(1)
+'oMychart.Activate
+'ActiveChart.ChartStyle = 205
+'oMychart.ApplyDataLabels 5
+'oMychart.FullSeriesCollection(1).Points(1).Select
+'    With Selection.Format.Fill
+'        .Visible = msoTrue
+'        .ForeColor.RGB = RGB(192, 0, 0)
+'        .Transparency = 0
+'        .Solid
+'    End With
+'FullSeriesCollection(1).Points(2).Select
+'    With Selection.Format.Fill
+'        .Visible = msoTrue
+'        .ForeColor.RGB = RGB(255, 0, 0)
+'        .Transparency = 0
+'        .Solid
+'    End With
+'oMychart.FullSeriesCollection(1).Points(3).Select
+'    With Selection.Format.Fill
+'        .Visible = msoTrue
+'        .ForeColor.RGB = RGB(255, 192, 0)
+'        .Transparency = 0
+'        .Solid
+'    End With
+'oMychart.FullSeriesCollection(1).Points(4).Select
+'    With Selection.Format.Fill
+'        .Visible = msoTrue
+'        .ForeColor.RGB = RGB(146, 208, 80)
+'        .Transparency = 0
+'        .Solid
+'    End With
+'oMychart.PlotArea.Fill.Visible=False
+'oMychart.PlotArea.Border.LineStyle=-4142
+'oMychart.ChartArea.Fill.Forecolor.SchemeColor=49
+'oMychart.ChartArea.Fill.Backcolor.SchemeColor=14
+'oMychart.ChartArea.Fill.TwoColorGradient 1,1
+'oMychart.ChartTitle.Font.Size=13
+'oMychart.ChartTitle.Font.ColorIndex=4
+'oMychart.ChartTitle.Text = "Vulnerability Summary"
+'oMychart.ChartArea.Select
+'oMychart.ChartArea.Copy
+'objWord.Selection.PasteSpecial
+
 objSelection.TypeParagraph()
 objSelection.Font.Bold = True
 objSelection.Font.Name = "Calibri"
