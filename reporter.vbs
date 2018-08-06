@@ -417,3 +417,85 @@ End Function
 Function GetCurrentDir
 	GetCurrentDir = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)
 End Function
+														
+														
+'**********************************************
+'Function: CreateChart()
+'Description:Creates a graph in an excel sheet.
+'Author:QTP Lab:--A touch of madness
+'Website:https://automationlab09.wordpress.com
+'Last modified:29/04/2009
+
+'****************************************************
+Function CreateChart()
+
+On Error Resume next
+Dim oExl,oWrkbk,oWrkst,oMychart
+
+Set oExl=CreateObject("Excel.Application")
+
+With oExl
+
+        .Visible=True
+
+End With
+
+Set oWrkbk=oExl.Workbooks.Add()
+Set oWrkst=oWrkbk.Worksheets(1)
+
+With oWrkst
+.Cells(1,1)="Critical"
+.Cells(2,1)="Very Serious"
+.Cells(3,1)="Serious"
+.Cells(4,1)="Moderate"
+.Cells(5,1)="Mild"
+
+.Cells(1,2)="Bugs Severity"
+
+For i=2 to 5
+
+.Cells(i,2)=i+21
+
+ If i>4 Then
+ .Cells(5,2)=9
+ End If
+
+Next
+
+End With
+Set oRange=oWrkst.UsedRange
+oRange.Select
+Set oChart=oExl.charts
+oChart.Add()
+Set oMychart=oChart(1)
+oMychart.Activate
+oMychart.ChartType=5
+oMychart.ApplyDataLabels 5
+
+oMychart.PlotArea.Fill.Visible=False
+oMychart.PlotArea.Border.LineStyle=-4142
+oMychart.SeriesCollection(1).DataLabels.Font.Size=15
+oMychart.SeriesCollection(1).DataLabels.Font.ColorIndex=2
+
+oMychart.ChartArea.Fill.Forecolor.SchemeColor=49
+oMychart.ChartArea.Fill.Backcolor.SchemeColor=14
+oMychart.ChartArea.Fill.TwoColorGradient 1,1
+
+oMychart.ChartTitle.Font.Size=20
+oMychart.ChartTitle.Font.ColorIndex=4
+'oWrkbk.Close
+Set oExl=Nothing
+
+If err.number<>0 then
+
+ Msgbox "error occurred while drawing..."
+ Msgbox err.Description
+
+Else
+
+ Msgbox  "Successfully drawn"
+
+End If
+
+End Function
+
