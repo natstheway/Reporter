@@ -499,3 +499,9 @@ End If
 
 End Function
 
+'Copy pasting from excel to word																
+'oMychart.ChartArea.Select
+'oMychart.ChartArea.Copy
+'objWord.Selection.PasteSpecial
+
+																
