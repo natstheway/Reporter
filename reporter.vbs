@@ -19,6 +19,7 @@
 'DLP enumeration
 'Share enumeration
 
+on error resume next
 
 MsgBox("Welcome to Reporter v1.0")
 ret = MsgBox("Select the Vulnerability and Missing Patches file",vbYesNo,"Reporter v1.0")
@@ -186,39 +187,39 @@ SummarySheet.Cells(Low,4) = 0
 'Vulnerability age and count of severity calculation
 MsgBox "Computing the aging and severity summary "
 
-'iter = 2
-'Do Until iter = GetMaxRow(vulnsheet)
-'vulnsheet.Cells(iter,LastObsDate).Formula = "=LEFT(M" & iter & ",(12))"
-'vulnsheet.Cells(iter,PluginPubDate).Formula = "=LEFT(O" & iter & ",(12))"
-'vulnsheet.Cells(iter,VulnAge).Formula = "=R" & iter & "-S" & iter
-'vulnsheet.Cells(iter,VulnAgeCategry).Formula = "=IF(T" & iter & "<=90," & chr(34) & "0-3 Months" & chr(34) & ",IF(AND(T" & iter & ">90,T" & iter & "<=180)," & chr(34) & "3-6 Months" & chr(34) & ",IF(AND(T" & iter & ">180,T" & iter & "<=365)," & chr(34) & "6-12 Months" & chr(34) & ",IF(AND(T" & iter & ">365,T" & iter & "<=730)," & chr(34) & "1-2 Years" & chr(34) & ",IF(AND(T" & iter & ">730,T" & iter & "<=1824)," & chr(34) & ">2 Years" & chr(34) & ",IF(T" & iter & ">1825," & chr(34) & ">5 Years" & chr(34) & "))))))"
-'
-'
-'if vulnsheet.Cells(iter,VulnAgeCategry).value = "0-3 Months" then 
-'	SummarySheet.Cells(vulagecat1,2) = SummarySheet.Cells(vulagecat1,2) + 1
-'ElseIf vulnsheet.Cells(iter,VulnAgeCategry).value = "3-6 Months" then 
-'	SummarySheet.Cells(vulagecat2,2) = SummarySheet.Cells(vulagecat2,2) + 1
-'ElseIf vulnsheet.Cells(iter,VulnAgeCategry).value = "6-12 Months" then 
-'	SummarySheet.Cells(vulagecat3,2) = SummarySheet.Cells(vulagecat3,2) + 1
-'ElseIf vulnsheet.Cells(iter,VulnAgeCategry).value = "1-2 Years" then 
-'	SummarySheet.Cells(vulagecat4,2) = SummarySheet.Cells(vulagecat4,2) + 1
-'ElseIf vulnsheet.Cells(iter,VulnAgeCategry).value = "2-5 Years" then 
-'	SummarySheet.Cells(vulagecat5,2) = SummarySheet.Cells(vulagecat5,2) + 1
-'ElseIf vulnsheet.Cells(iter,VulnAgeCategry).value = ">5 Years" then 
-'	SummarySheet.Cells(vulagecat6,2) = SummarySheet.Cells(vulagecat6,2) + 1
-'End If
-'
-'if vulnsheet.Cells(iter,severity).value = "Critical" then 
-'	SummarySheet.Cells(Critical,2) = SummarySheet.Cells(Critical,2) + 1
-'Elseif vulnsheet.Cells(iter,severity).value = "High" then 
-'	SummarySheet.Cells(High,2) = SummarySheet.Cells(High,2) + 1
-'Elseif vulnsheet.Cells(iter,severity).value = "Medium" then 
-'	SummarySheet.Cells(Medium,2) = SummarySheet.Cells(Medium,2) + 1
-'Elseif vulnsheet.Cells(iter,severity).value = "Low" then 
-'	SummarySheet.Cells(Low,2) = SummarySheet.Cells(Low,2) + 1
-'End If
-'iter = iter + 1
-'Loop
+iter = 2
+Do Until iter = GetMaxRow(vulnsheet)
+vulnsheet.Cells(iter,LastObsDate).Formula = "=LEFT(M" & iter & ",(12))"
+vulnsheet.Cells(iter,PluginPubDate).Formula = "=LEFT(O" & iter & ",(12))"
+vulnsheet.Cells(iter,VulnAge).Formula = "=R" & iter & "-S" & iter
+vulnsheet.Cells(iter,VulnAgeCategry).Formula = "=IF(T" & iter & "<=90," & chr(34) & "0-3 Months" & chr(34) & ",IF(AND(T" & iter & ">90,T" & iter & "<=180)," & chr(34) & "3-6 Months" & chr(34) & ",IF(AND(T" & iter & ">180,T" & iter & "<=365)," & chr(34) & "6-12 Months" & chr(34) & ",IF(AND(T" & iter & ">365,T" & iter & "<=730)," & chr(34) & "1-2 Years" & chr(34) & ",IF(AND(T" & iter & ">730,T" & iter & "<=1824)," & chr(34) & ">2 Years" & chr(34) & ",IF(T" & iter & ">1825," & chr(34) & ">5 Years" & chr(34) & "))))))"
+
+
+if vulnsheet.Cells(iter,VulnAgeCategry).value = "0-3 Months" then 
+	SummarySheet.Cells(vulagecat1,2) = SummarySheet.Cells(vulagecat1,2) + 1
+ElseIf vulnsheet.Cells(iter,VulnAgeCategry).value = "3-6 Months" then 
+	SummarySheet.Cells(vulagecat2,2) = SummarySheet.Cells(vulagecat2,2) + 1
+ElseIf vulnsheet.Cells(iter,VulnAgeCategry).value = "6-12 Months" then 
+	SummarySheet.Cells(vulagecat3,2) = SummarySheet.Cells(vulagecat3,2) + 1
+ElseIf vulnsheet.Cells(iter,VulnAgeCategry).value = "1-2 Years" then 
+	SummarySheet.Cells(vulagecat4,2) = SummarySheet.Cells(vulagecat4,2) + 1
+ElseIf vulnsheet.Cells(iter,VulnAgeCategry).value = "2-5 Years" then 
+	SummarySheet.Cells(vulagecat5,2) = SummarySheet.Cells(vulagecat5,2) + 1
+ElseIf vulnsheet.Cells(iter,VulnAgeCategry).value = ">5 Years" then 
+	SummarySheet.Cells(vulagecat6,2) = SummarySheet.Cells(vulagecat6,2) + 1
+End If
+
+if vulnsheet.Cells(iter,severity).value = "Critical" then 
+	SummarySheet.Cells(Critical,2) = SummarySheet.Cells(Critical,2) + 1
+Elseif vulnsheet.Cells(iter,severity).value = "High" then 
+	SummarySheet.Cells(High,2) = SummarySheet.Cells(High,2) + 1
+Elseif vulnsheet.Cells(iter,severity).value = "Medium" then 
+	SummarySheet.Cells(Medium,2) = SummarySheet.Cells(Medium,2) + 1
+Elseif vulnsheet.Cells(iter,severity).value = "Low" then 
+	SummarySheet.Cells(Low,2) = SummarySheet.Cells(Low,2) + 1
+End If
+iter = iter + 1
+Loop
 '
 '
 ''Create a new column - last observed date with a formula
@@ -281,6 +282,7 @@ MsgBox "Computing the aging and severity summary "
 ' PLEASE ENSURE ALL CALCULATIONS ARE COMPLETED BEFORE THIS
 ' THIS IS ONLY FOR CREATING CHARTS IN EXCEL AND COPYING IN TO WORD
 														
+objWorkbook1.Save
 
 MsgBox "Reporting in progress"
 'Add basic contents and headers to Word File
@@ -299,53 +301,54 @@ objSelection.Font.Size = "11"
 objSelection.TypeText "A breakdown of the vulnerabilities based on the severity is highlighted for the London devices in the below graph.  " 
 
 'TODO : INSERT CHART
-'Set oRange=vulnsheet.Range("A9:B12")
-'oRange.select
-'Set oChart=objExcel1.charts
-'oChart.Add()
-'Set oMychart=oChart(1)
-'oMychart.Activate
-'ActiveChart.ChartStyle = 205
-'oMychart.ApplyDataLabels 5
-'oMychart.FullSeriesCollection(1).Points(1).Select
-'    With Selection.Format.Fill
-'        .Visible = msoTrue
-'        .ForeColor.RGB = RGB(192, 0, 0)
-'        .Transparency = 0
-'        .Solid
-'    End With
-'FullSeriesCollection(1).Points(2).Select
-'    With Selection.Format.Fill
-'        .Visible = msoTrue
-'        .ForeColor.RGB = RGB(255, 0, 0)
-'        .Transparency = 0
-'        .Solid
-'    End With
-'oMychart.FullSeriesCollection(1).Points(3).Select
-'    With Selection.Format.Fill
-'        .Visible = msoTrue
-'        .ForeColor.RGB = RGB(255, 192, 0)
-'        .Transparency = 0
-'        .Solid
-'    End With
-'oMychart.FullSeriesCollection(1).Points(4).Select
-'    With Selection.Format.Fill
-'        .Visible = msoTrue
-'        .ForeColor.RGB = RGB(146, 208, 80)
-'        .Transparency = 0
-'        .Solid
-'    End With
-'oMychart.PlotArea.Fill.Visible=False
-'oMychart.PlotArea.Border.LineStyle=-4142
-'oMychart.ChartArea.Fill.Forecolor.SchemeColor=49
-'oMychart.ChartArea.Fill.Backcolor.SchemeColor=14
-'oMychart.ChartArea.Fill.TwoColorGradient 1,1
-'oMychart.ChartTitle.Font.Size=13
-'oMychart.ChartTitle.Font.ColorIndex=4
-'oMychart.ChartTitle.Text = "Vulnerability Summary"
-'oMychart.ChartArea.Select
-'oMychart.ChartArea.Copy
-'objWord.Selection.PasteSpecial
+Set oRange=SummarySheet.Range("A9:B12")
+oRange.select
+Set oChart=objExcel1.charts
+oChart.Add()
+Set oMychart=oChart(1)
+oMychart.SetSourceData oRange
+oMychart.Activate
+oMychart.ChartTitle.Text = "Vulnerability Summary"
+ActiveChart.ChartStyle = 205
+oMychart.ApplyDataLabels 5
+oMychart.PlotArea.Fill.Visible=False
+oMychart.PlotArea.Border.LineStyle=-4142
+oMychart.ChartArea.Fill.Forecolor.SchemeColor=49
+oMychart.ChartArea.Fill.Backcolor.SchemeColor=14
+oMychart.ChartArea.Fill.TwoColorGradient 1,1
+oMychart.ChartTitle.Font.Size=13
+oMychart.ChartTitle.Font.ColorIndex=4
+'oMychart.Shapes.AddChart2(201, xlColumnClustered).Select
+
+oMychart.FullSeriesCollection(1).Points(1).Format.Fill.Visible = msoTrue
+oMychart.FullSeriesCollection(1).Points(1).Format.Fill.ForeColor.RGB = RGB(192, 0, 0)
+oMychart.FullSeriesCollection(1).Points(1).Format.Line.ForeColor.RGB = RGB(192, 0, 0)
+oMychart.FullSeriesCollection(1).Points(1).Format.Fill.Transparency = 0
+oMychart.FullSeriesCollection(1).Points(1).Format.Fill.Solid
+oMychart.FullSeriesCollection(1).Points(2).Format.Fill.Visible = msoTrue
+oMychart.FullSeriesCollection(1).Points(2).Format.Fill.ForeColor.RGB = RGB(255, 0, 0)
+oMychart.FullSeriesCollection(1).Points(2).Format.Line.ForeColor.RGB = RGB(255, 0, 0)
+oMychart.FullSeriesCollection(1).Points(2).Format.Fill.Transparency = 0
+oMychart.FullSeriesCollection(1).Points(2).Format.Fill.Solid
+oMychart.FullSeriesCollection(1).Points(3).Format.Fill.Visible = msoTrue
+oMychart.FullSeriesCollection(1).Points(3).Format.Fill.ForeColor.RGB = RGB(255, 192, 0)
+oMychart.FullSeriesCollection(1).Points(3).Format.Line.ForeColor.RGB = RGB(255, 192, 0)
+oMychart.FullSeriesCollection(1).Points(3).Format.Fill.Transparency = 0
+oMychart.FullSeriesCollection(1).Points(3).Format.Fill.Solid
+oMychart.FullSeriesCollection(1).Points(4).Format.Fill.Visible = msoTrue
+oMychart.FullSeriesCollection(1).Points(4).Format.Fill.ForeColor.RGB = RGB(255, 255, 0)
+oMychart.FullSeriesCollection(1).Points(4).Format.Line.ForeColor.RGB = RGB(255, 255, 0)
+oMychart.FullSeriesCollection(1).Points(4).Format.Fill.Transparency = 0
+oMychart.FullSeriesCollection(1).Points(4).Format.Fill.Solid
+
+oMychart.ChartTitle.Text = "Vulnerability Summary"
+oMychart.SeriesCollection(1).DataLabels.Font.Size=15
+oMychart.SeriesCollection(1).DataLabels.Font.ColorIndex=2
+oMychart.ApplyDataLabels 5
+
+oMychart.Select
+oMychart.Copy
+objWord.Selection.PasteSpecial
 
 objSelection.TypeParagraph()
 objSelection.Font.Bold = True
