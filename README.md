@@ -14,3 +14,11 @@ Future plan is to improve it as a generic framework to create reports from multi
 9. Outdated Antivirus enumeration
 10. DLP enumeration
 11.Share enumeration
+
+
+TODO : 
+
+1. Logic for most of the reports are ready.
+2. Changing the existing iteration logic to row, which is faster.
+3. Fixing the charting issues in Word and Excel.
+4. Code Clean Up
